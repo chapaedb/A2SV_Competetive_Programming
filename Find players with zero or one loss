@@ -1,0 +1,23 @@
+class Solution:
+    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
+        loss_count = defaultdict(int)
+        players = set()
+        
+        for winner, loser in matches:
+            players.add(winner)
+            players.add(loser)
+            loss_count[loser] += 1
+        
+        never_lost = []
+        lost_once = []
+        
+        for player in players:
+            if loss_count[player] == 0:
+                never_lost.append(player)
+            elif loss_count[player] == 1:
+                lost_once.append(player)
+        
+        never_lost.sort()
+        lost_once.sort()
+        
+        return [never_lost, lost_once]
